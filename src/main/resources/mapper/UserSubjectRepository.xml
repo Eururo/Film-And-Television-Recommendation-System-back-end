@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recommend.repository.UserSubjectRepository">
+    <select id="findByUserIdAndSubjectId" resultType="UserSubject">
+        select * from user_subject where user_id=#{user_id} AND subject_id=#{subject_id}
+    </select>
+    <select id="findByUserIdAndStatus" resultType="UserSubject">
+        select * from user_subject where user_id=#{user_id} AND ${status}=1
+    </select>
+    <select id="findUserSubjectByUserIdAndKind" parameterType="java.lang.Integer" resultType="UserSubject">
+        select * from user_subject where ${kind}=1 AND user_id=#{user_id} ORDER BY ${order_by} DESC LIMIT #{current_page},#{page_size};
+    </select>
+    <insert id="insert" parameterType="UserSubject">
+        insert into user_subject(user_id,subject_id,is_collected,is_watching,is_watched,is_scored,is_like,score,watch_time,recommend_reason,link,collected_time) values(#{user_id},#{subject_id},#{is_collected},#{is_watching},#{is_watched},#{is_scored},#{is_like},#{score},#{watch_time},#{recommend_reason},#{link},#{collected_time})
+    </insert>
+    <update id="update" parameterType="UserSubject">
+        update user_subject set is_collected=#{is_collected},is_watching=#{is_watching},is_watched=#{is_watched},is_scored=#{is_scored},is_like=#{is_like},score=#{score},watch_time=#{watch_time},recommend_reason=#{recommend_reason},link=#{link},collected_time=#{collected_time} where user_id=#{user_id} AND subject_id=#{subject_id}
+    </update>
+    <delete id="deleteById" parameterType="UserSubject">
+        delete from user_subject where user_id=#{user_id} AND subject_id=#{subject_id}
+    </delete>
+    <delete id="deleteByUserId" parameterType="java.lang.Integer">
+        delete from user_subject where user_id=#{user_id}
+    </delete>
+</mapper>

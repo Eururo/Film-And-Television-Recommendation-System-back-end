@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recommend.repository.ItemRepository">
+    <select id="findItemList" resultType="Item">
+        select us.subject_id,subject_name,s.score from subject as s,user_subject as us where us.user_id=#{user_id} AND s.subject_id=us.subject_id AND ${kind}=1 AND ${type}=1 ORDER BY ${order_by} DESC LIMIT #{current_page},#{page_size};
+    </select>
+    <select id="findWatchingList" resultType="Item">
+        select us.subject_id,subject_name,s.score from subject as s,user_subject as us where us.user_id=#{user_id} AND s.subject_id=us.subject_id AND ${type}=1 ORDER BY ${order_by} DESC LIMIT #{current_page},#{page_size};
+    </select>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recommend.repository.RecommendListRepository">
+    <select id="findAll" resultType="RecommendList">
+        select * from recommend_list
+    </select>
+    <select id="findById" parameterType="java.lang.Integer" resultType="RecommendList">
+        select * from recommend_list where list_id=#{list_id}
+    </select>
+    <select id="findByUserIdAndListName" resultType="RecommendList">
+        select * from recommend_list where user_id=#{user_id} And list_name=#{list_name}
+    </select>
+    <select id="findByUserId" parameterType="java.lang.Integer" resultType="RecommendList">
+        select * from recommend_list where user_id=#{user_id}
+    </select>
+    <insert id="insert" parameterType="RecommendList">
+        insert into recommend_list(list_id,user_id,list_name) values(NULL,#{user_id},#{list_name})
+    </insert>
+    <update id="updateById" parameterType="RecommendList">
+        update recommend_list set list_name=#{list_name} where list_id=#{list_id}
+    </update>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from recommend_list where list_id=#{list_id}
+    </delete>
+
+</mapper>

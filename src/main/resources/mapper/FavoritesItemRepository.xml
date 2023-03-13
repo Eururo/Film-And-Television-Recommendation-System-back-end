@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recommend.repository.FavoritesItemRepository">
+    <select id="findById" resultType="Item">
+        select s.subject_id,subject_name,score from favorites_item as fi, subject as s where favorites_id=#{favorites_id} AND fi.subject_id=s.subject_id AND ${type}=1 ORDER BY ${order_by} DESC LIMIT #{current_page},#{page_size}
+    </select>
+    <insert id="insert" parameterType="FavoritesItem">
+        insert into favorites_item(id,favorites_id,subject_id) values(NULL,#{favorites_id},#{subject_id})
+    </insert>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from favorites_item where favorites_id=#{favorites_id} AND subject_id=#{subject_id}
+    </delete>
+    <delete id="deleteByFavoritesId" parameterType="java.lang.Integer">
+        delete from favorites_item where favorites_id=#{favorites_id}
+    </delete>
+</mapper>

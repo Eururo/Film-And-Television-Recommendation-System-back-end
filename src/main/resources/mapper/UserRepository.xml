@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recommend.repository.UserRepository">
+    <select id="findAll" resultType="User">
+        select * from user
+    </select>
+    <select id="findById" parameterType="java.lang.Integer" resultType="User">
+        select * from user where user_id=#{user_id}
+    </select>
+    <select id="findUser" parameterType="User" resultType="User">
+        select * from user where user_id=#{user_id} AND password=#{password}
+    </select>
+    <select id="findUserByName" parameterType="User" resultType="User">
+        select * from user where user_name=#{user_name} AND password=#{password}
+    </select>
+    <select id="searchUser" parameterType="java.lang.String" resultType="User">
+        select * from user where user_name LIKE CONCAT('%',#{search_param},'%')
+    </select>
+    <insert id="insert" parameterType="User">
+        insert into user(user_id,user_name,email,password,portrait) values(NULL,#{user_name},#{email},#{password},#{portrait})
+    </insert>
+    <update id="updateById" parameterType="User">
+        update user set user_name=#{user_name},email=#{email},portrait=#{portrait} where user_id=#{user_id} AND password=#{password}
+    </update>
+    <update id="changePassword" parameterType="User">
+        update user set password=#{password} where user_id=#{user_id}
+    </update>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from user where user_id=#{user_id}
+    </delete>
+</mapper>

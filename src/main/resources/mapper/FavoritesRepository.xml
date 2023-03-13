@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recommend.repository.FavoritesRepository">
+    <select id="findById" resultType="Favorites">
+        select * from favorites where favorites_id=#{favorites_id}
+    </select>
+    <select id="findByUserIdAndFavoritesName" resultType="Favorites">
+        select * from favorites where favorites_name=#{favorites_name} AND user_id=#{user_id}
+    </select>
+    <select id="findByUserId" parameterType="java.lang.Integer" resultType="Favorites">
+        select * from favorites where user_id=#{user_id}
+    </select>
+    <insert id="insert" parameterType="Favorites">
+        insert into favorites(favorites_id,user_id,favorites_name) values(NULL,#{user_id},#{favorites_name})
+    </insert>
+    <update id="update" parameterType="Favorites">
+        update favorites set favorites_name=#{favorites_name} where favorites_id=#{favorites_id}
+    </update>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from favorites where favorites_id=#{favorites_id}
+    </delete>
+    <delete id="deleteByUserId" parameterType="java.lang.Integer">
+        delete from favorites where user_id=#{user_id}
+    </delete>
+</mapper>

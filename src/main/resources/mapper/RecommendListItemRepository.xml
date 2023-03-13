@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.recommend.repository.RecommendListItemRepository">
+    <select id="findByListId" resultType="Item">
+        select s.subject_id,subject_name,score from recommend_list_item as rli, subject as s where list_id=#{list_id} AND rli.subject_id=s.subject_id AND ${type}=1 ORDER BY ${order_by} DESC LIMIT #{current_page},#{page_size}
+    </select>
+    <insert id="insert" parameterType="java.lang.Integer">
+        insert into recommend_list_item(id,list_id,subject_id) values(NULL,#{list_id},#{subject_id})
+    </insert>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from recommend_list_item where list_id=#{list_id} AND subject_id=#{subject_id}
+    </delete>
+    <delete id="deleteByListId" parameterType="java.lang.Integer">
+        delete from recommend_list_item where list_id=#{list_id}
+    </delete>
+</mapper>
